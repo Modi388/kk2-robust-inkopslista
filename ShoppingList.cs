@@ -107,7 +107,7 @@ class ShoppingList
         catch (FileNotFoundException)
         {
             // om filen finns inte till exempel första gången programmet körs.
-            // ska programmet inte krasha utan öörja med en tom lista
+            // ska programmet inte krascha utan börja med en tom lista
             Console.WriteLine("Filen saknas, du börjar med en tom lista.");
         }
         catch (FormatException)
