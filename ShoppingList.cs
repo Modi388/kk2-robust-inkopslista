@@ -81,13 +81,40 @@ class ShoppingList
     // Reads the file back into the list.
     public void Load()
     {
-        string text = File.ReadAllText(path);
-        string[] lines = text.Split('\n');
-
-        foreach (string line in lines)
+        try
         {
-            string[] parts = line.Split(';');
-            items.Add(new Item(parts[1], int.Parse(parts[0])));
+            //läser hela filen som en enda lång text
+            string text = File.ReadAllText(path);
+
+            // delar upp texten i rader. Save hade \r\n efter varje rad men inte load så nu delar vi på samma tecken. 
+            // Annars kommer det stå \r i slutet av namnet och sökningen hittar inte varan.
+            string[] lines = text.Split("\r\n");
+
+            foreach (string line in lines)
+            {
+                // 15;Mjölk blir ["15", "Mjölk"].
+                string[] parts = line.Split(';');
+
+                // rader med två delar alltså namn och pris är giltiga varor
+                // annars den tomma raden sist i filen ger bara en del och hoppas över.
+                if (parts.Length == 2)
+                {
+                    // parts[0] är priset det görs om till en int. parts [1] namnet.
+                    items.Add(new Item(parts[1], int.Parse(parts[0])));
+                }
+            }
+        }
+        catch (FileNotFoundException)
+        {
+            // om filen finns inte till exempel första gången programmet körs.
+            // ska programmet inte krasha utan öörja med en tom lista
+            Console.WriteLine("Filen saknas, du börjar med en tom lista.");
+        }
+        catch (FormatException)
+        {
+            // om priset i filen gick inte att göra om till ett tal, till exempel abc;Mjölk.
+            // Vi berättar för användaren i stället för att krascha.
+            Console.WriteLine("Filen innehåller en rad med fel format.");
         }
     }
 }
