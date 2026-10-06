@@ -13,20 +13,37 @@ while (true)
     Console.WriteLine("5. Avsluta");
     Console.Write("Välj: ");
 
-    int choice = int.Parse(Console.ReadLine());
+    int choice;
+    // TryParse försöker göra om texten till ett tal. om det inte går frågar vi igen.
+    while (!int.TryParse(Console.ReadLine(), out choice))
+    {
+        Console.Write("Skriv en siffra mellan 1 och 5: ");
+    }
 
     if (choice == 1)
     {
         Console.Write("Namn: ");
         string name = Console.ReadLine();
         Console.Write("Pris: ");
-        int price = int.Parse(Console.ReadLine());
+        int price;
+
+        // Samma sak för priset: fråga igen tills användaren skriver ett tal.
+        while (!int.TryParse(Console.ReadLine(), out price))
+        {
+            Console.Write("Priset måste vara ett heltal. Försök igen: ");
+        }
         list.Add(new Item(name, price));
     }
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-        int number = int.Parse(Console.ReadLine());
+        int number;
+
+        // Samma sak för numret på varan som ska tas bort.
+        while (!int.TryParse(Console.ReadLine(), out number))
+        {
+            Console.Write("Skriv numret på varan: ");
+        }
         list.RemoveAt(number);
     }
     else if (choice == 3)
@@ -51,5 +68,9 @@ while (true)
     else if (choice == 5)
     {
         break;
+    }
+    else
+    {
+        Console.WriteLine("Det valet finns inte. Välj 1–5.");
     }
 }
