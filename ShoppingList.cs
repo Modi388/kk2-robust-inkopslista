@@ -14,10 +14,18 @@ class ShoppingList
         items.Add(item);
     }
 
-    // Removes the item the user sees as number 1, 2, 3 ...
-    public void RemoveAt(int number)
+    // tar bort den item som användare ser som nummer 1, 2, 3...
+    // Svarar true om varan togs bort, false om numret inte finns.
+    public bool RemoveAt(int number)
     {
+        // Numret måste vara minst 1 och högst lika många som det finns varor.
+        if (number < 1 || number > items.Count)
+        {
+            return false;
+        }
+
         items.RemoveAt(number - 1);
+        return true;
     }
 
     // Adds up the price of every item on the list.

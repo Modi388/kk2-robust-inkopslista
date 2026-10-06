@@ -44,7 +44,11 @@ while (true)
         {
             Console.Write("Skriv numret på varan: ");
         }
-        list.RemoveAt(number);
+        // RemoveAt svarar false om numret inte fanns.
+        if (!list.RemoveAt(number))
+        {
+            Console.WriteLine("Det finns ingen vara med det numret.");
+        }
     }
     else if (choice == 3)
     {
