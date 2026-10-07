@@ -32,8 +32,8 @@ class ShoppingList
     public int Total()
     {
         int sum = 0;
-
-        for (int i = 1; i < items.Count; i++)
+        // Börjar på 0 eftersom den första varan i listan har index 0. 
+        for (int i = 0; i < items.Count; i++)
         {
             sum += items[i].Price;
         }
