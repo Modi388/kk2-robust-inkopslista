@@ -78,12 +78,13 @@ class ShoppingList
         try
         {
             File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+            Console.WriteLine("Listan är sparad.");
         }
-        catch
+        catch (UnauthorizedAccessException)
         {
+            // körs om programmet inte har lov att skriva till filen, ex om den är skrivskyddad. Programmet berättar detta istllet för att krascha.
+            Console.WriteLine("Listan kunde inte sparas. programmet har inte lov att skriva till filen");
         }
-
-        Console.WriteLine("Listan är sparad.");
     }
 
     // Reads the file back into the list.
