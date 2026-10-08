@@ -1,4 +1,4 @@
-ShoppingList list = new ShoppingList("items.txt");
+ShoppingList list = new ShoppingList("items.txt", 200);
 list.Load();
 
 while (true)
@@ -34,7 +34,11 @@ while (true)
         }
         try
         {
-            list.Add(new Item(name, price));
+            // Add svarar false om varan skulle göra listan dyrare än budgeten.
+            if (!list.Add(new Item(name, price)))
+            {
+                Console.WriteLine("Varan lades inte till. Listan skulle bli dyrare än budgeten");
+            }
         }
         // denna står över argumentexception för att den är en mer specifik typ av den. 
         // Den ärver ifrån argumentexception vilket är bredare. 
@@ -45,10 +49,6 @@ while (true)
         catch (ArgumentException)
         {
             Console.WriteLine("Namnet får inte vara tomt");
-        }
-        if (list.Add(price > 200)))
-        {
-            Console.WriteLine("Det blir för dyrt, budgeten är 200kr");
         }
     }
     else if (choice == 2)
