@@ -32,7 +32,20 @@ while (true)
         {
             Console.Write("Priset måste vara ett heltal. Försök igen: ");
         }
-        list.Add(new Item(name, price));
+        try
+        {
+            list.Add(new Item(name, price));
+        }
+        // denna står över argumentexception för att den är en mer specifik typ av den. 
+        // Den ärver ifrån argumentexception vilket är bredare. 
+        catch (ArgumentOutOfRangeException)
+        {
+            Console.WriteLine("Priset får inte vara negativt");
+        }
+        catch (ArgumentException)
+        {
+            Console.WriteLine("Namnet får inte vara tomt");
+        }
     }
     else if (choice == 2)
     {
