@@ -46,6 +46,10 @@ while (true)
         {
             Console.WriteLine("Namnet får inte vara tomt");
         }
+        if (list.Add(price > 200)))
+        {
+            Console.WriteLine("Det blir för dyrt, budgeten är 200kr");
+        }
     }
     else if (choice == 2)
     {

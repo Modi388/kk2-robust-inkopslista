@@ -3,15 +3,27 @@ class ShoppingList
 {
     private List<Item> items = new List<Item>();
     private string path;
+    private int budget; // Vad edet totala får max vara
 
-    public ShoppingList(string path)
+    public ShoppingList(string path, int budget)
     {
         this.path = path;
+        this.budget = budget;
     }
 
-    public void Add(Item item)
+    // Lägger till en vara i listan, men bara om den får plats i budgeten.
+    // Svarar true om varan lades till, false om den skulle göra listan för dyr.
+    public bool Add(Item item)
     {
+        // Det totala priset + den nya varans pris får inte bli mer än budgeten
+        // annars svarar den false.        
+        if (Total() + item.Price > budget)
+        {
+            return false;
+        }
+
         items.Add(item);
+        return true;
     }
 
     // tar bort den item som användare ser som nummer 1, 2, 3...
