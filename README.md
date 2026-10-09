@@ -50,5 +50,31 @@ Kunskapskontroll 2 – Programmering och objektorienterad utveckling i C#
 **Hur jag löste det:** Jag flyttade "Listan är sparad" in till try då den bara skrivs ut om sparandet påriktigt lyckades. Byta den tomma catch mot en riktig catch block som fångar specifikau ndantag och berättar vad som hände Jag testade med Read-only och såg att det kastades UnauthorizedAccessException, så det är det jag fångar
 
 ## Designval
+jag valde att Add returnerar false när en vara skulle göra listan dyrare än budgeten, i stället för att kasta ett undantag.
+
+Att en inköpslista blir för dyr är inget fel i programmet, utan något normalt som kan hända. Undantag använder jag i stället för saker som verkligen är fel, som ett tomt namn eller ett negativt pris i Item.
+
+I Program.cs räcker det då med en if-sats som kollar svaret och visar ett meddelande till användaren, på samma sätt som jag gjorde med RemoveAt.
 
 ## Klassdiagram
+
+```mermaid
+classDiagram
+    Program --> ShoppingList : använder
+    ShoppingList --> Item : innehåller flera
+
+    class ShoppingList {
+        items
+        budget
+        Add()
+        RemoveAt()
+        Total()
+        Save()
+        Load()
+    }
+
+    class Item {
+        Name
+        Price
+    }
+```
